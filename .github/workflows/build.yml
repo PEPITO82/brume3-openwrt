@@ -55,8 +55,9 @@ jobs:
           echo "SRC_REV=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
           git log --oneline -3
 
-      - name: Cache (Downloads & ccache)
-        uses: actions/cache@v4
+      - name: Cache laden (Downloads & ccache)
+        id: cache
+        uses: actions/cache/restore@v4
         with:
           path: |
             /mnt/openwrt/dl
@@ -82,6 +83,7 @@ jobs:
           if [ "${{ inputs.all_kmods }}" != "false" ]; then
             echo "CONFIG_ALL_KMODS=y" >> .config
           fi
+          echo "CONFIG_BUILD_LOG=y" >> .config
           make defconfig
           # Sicherstellen, dass nichts Wichtiges stillschweigend weggefallen ist
           for p in TARGET_mediatek_filogic_DEVICE_glinet_gl-mt5000 \
@@ -100,7 +102,42 @@ jobs:
       - name: Kompilieren
         run: |
           cd "$OPENWRT_PATH"
-          make -j$(nproc) || make -j1 V=s
+          # IGNORE_ERRORS="n m": ein kaputtes optionales Modul (m) bricht den Build
+          # nicht ab; fest eingebaute Pakete (y) müssen weiterhin bauen.
+          make -j$(nproc) IGNORE_ERRORS="n m" || make -j1 V=s IGNORE_ERRORS="n m"
+
+      - name: Cache speichern (auch bei Fehler)
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            /mnt/openwrt/dl
+            /mnt/openwrt/.ccache
+          key: brume3-${{ env.SRC_REV }}-${{ hashFiles('config/brume3.config') }}-${{ github.run_id }}
+
+      - name: Fehlerprotokolle in Branch build-logs sichern
+        if: always()
+        run: |
+          cd "$OPENWRT_PATH"
+          R="$RUNNER_TEMP/report"; mkdir -p "$R"
+          {
+            echo "Run ${{ github.run_id }} – Quelle ${SRC_REV:-?} – $(date -u)"
+            echo
+            echo "== Pakete mit Build-Fehlern =="
+            grep -rlE 'make\[[0-9]+\]: \*\*\*|Error [0-9]+' logs 2>/dev/null | sort || true
+          } > "$R/zusammenfassung.txt"
+          for f in $(grep -rlE 'make\[[0-9]+\]: \*\*\*|Error [0-9]+' logs 2>/dev/null | head -40); do
+            out="$R/$(echo "$f" | tr '/' '_')"
+            tail -n 120 "$f" > "$out"
+          done
+          cd "$RUNNER_TEMP"
+          rm -rf logrepo && git clone -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" logrepo
+          cd logrepo
+          git checkout -q --orphan build-logs && git rm -rqf . || true
+          cp "$R"/* .
+          git add -A
+          git -c user.name=build-bot -c user.email=build-bot@users.noreply.github.com \
+            commit -qm "Build-Logs Run ${{ github.run_id }}" && git push -qf origin build-logs || true
 
       - name: Ergebnisse einsammeln
         if: always()
