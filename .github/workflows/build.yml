@@ -1,6 +1,9 @@
 name: Brume 3 OpenWrt bauen
 
 on:
+  push:
+    branches: [main]
+    paths: ['config/**', 'scripts/**', '.github/workflows/**']
   workflow_dispatch:
     inputs:
       source_ref:
@@ -48,7 +51,7 @@ jobs:
           sudo chown "$USER:$USER" "$OPENWRT_PATH"
           git clone --filter=blob:none -b mt5000 "$SOURCE_REPO" "$OPENWRT_PATH"
           cd "$OPENWRT_PATH"
-          git checkout "${{ inputs.source_ref }}"
+          git checkout "${{ inputs.source_ref || 'mt5000' }}"
           echo "SRC_REV=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
           git log --oneline -3
 
@@ -76,7 +79,7 @@ jobs:
         run: |
           cd "$OPENWRT_PATH"
           cp "$GITHUB_WORKSPACE/config/brume3.config" .config
-          if [ "${{ inputs.all_kmods }}" = "true" ]; then
+          if [ "${{ inputs.all_kmods }}" != "false" ]; then
             echo "CONFIG_ALL_KMODS=y" >> .config
           fi
           make defconfig
@@ -134,5 +137,5 @@ jobs:
             OpenWrt für GL.iNet GL-MT5000 (Brume 3)
             Quelle: GLiNet-Tech/openwrt @ ${{ env.SRC_REV }} (OpenWrt main + PR #24237)
             Zusatz: copy_config-Fix (Einstellungen behalten beim Sysupgrade)
-            Alle kmods: ${{ inputs.all_kmods }}
+            Alle kmods: ${{ inputs.all_kmods || 'true' }}
           files: out/*
