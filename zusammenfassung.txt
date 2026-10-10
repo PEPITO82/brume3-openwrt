@@ -1,0 +1,4 @@
+Run 38051534782 – Quelle 996b7d3833 – Sat Oct 10 14:30:21 UTC 2026
+
+== Pakete mit Build-Fehlern ==
+logs/package/feeds/packages/perl/host-compile.txt
