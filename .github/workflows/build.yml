@@ -73,6 +73,9 @@ jobs:
       - name: Feeds aktualisieren
         run: |
           cd "$OPENWRT_PATH"
+          # Telefonie- und Video-Feed werden nicht gebraucht (spart Bauzeit,
+          # rtpengine-kmod baut z. B. nicht mit Kernel 6.18)
+          sed -i -E '/^src-git (telephony|video) /d' feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
@@ -124,9 +127,9 @@ jobs:
             echo "Run ${{ github.run_id }} – Quelle ${SRC_REV:-?} – $(date -u)"
             echo
             echo "== Pakete mit Build-Fehlern =="
-            grep -rlE 'make\[[0-9]+\]: \*\*\*|Error [0-9]+' logs 2>/dev/null | sort || true
+            grep -rlE 'make\[[0-9]+\]: \*\*\*' logs/package logs/target 2>/dev/null | sort || true
           } > "$R/zusammenfassung.txt"
-          for f in $(grep -rlE 'make\[[0-9]+\]: \*\*\*|Error [0-9]+' logs 2>/dev/null | head -40); do
+          for f in $(grep -rlE 'make\[[0-9]+\]: \*\*\*' logs/package logs/target 2>/dev/null | head -40); do
             out="$R/$(echo "$f" | tr '/' '_')"
             tail -n 120 "$f" > "$out"
           done
