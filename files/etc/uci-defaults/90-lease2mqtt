@@ -1,0 +1,15 @@
+#!/bin/sh
+# Richtet den Minutentakt für lease2mqtt ein (läuft einmal nach jedem Flashen).
+chmod 755 /usr/bin/lease2mqtt.sh
+
+touch /etc/crontabs/root
+grep -q 'lease2mqtt.sh' /etc/crontabs/root || \
+	echo '* * * * * /usr/bin/lease2mqtt.sh' >> /etc/crontabs/root
+
+# Zugangsdaten bei künftigen Updates mitsichern
+grep -qx '/etc/lease2mqtt.conf' /etc/sysupgrade.conf 2>/dev/null || \
+	echo '/etc/lease2mqtt.conf' >> /etc/sysupgrade.conf
+
+/etc/init.d/cron enable
+/etc/init.d/cron restart
+exit 0

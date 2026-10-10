@@ -3,7 +3,7 @@ name: Brume 3 OpenWrt bauen
 on:
   push:
     branches: [main]
-    paths: ['config/**', 'scripts/**', '.github/workflows/**']
+    paths: ['config/**', 'scripts/**', 'files/**', '.github/workflows/**']
   workflow_dispatch:
     inputs:
       source_ref:
@@ -69,6 +69,11 @@ jobs:
         run: |
           cd "$OPENWRT_PATH"
           bash "$GITHUB_WORKSPACE/scripts/prepare.sh"
+          # Eigene Dateien (Skripte, uci-defaults) ins Image übernehmen
+          if [ -d "$GITHUB_WORKSPACE/files" ]; then
+            mkdir -p files && cp -a "$GITHUB_WORKSPACE/files/." files/
+            find files -type f | sed 's/^/  + /'
+          fi
 
       - name: Feeds aktualisieren
         run: |
@@ -92,7 +97,7 @@ jobs:
           for p in TARGET_mediatek_filogic_DEVICE_glinet_gl-mt5000 \
                    PACKAGE_luci PACKAGE_luci-proto-wireguard PACKAGE_luci-app-ddns \
                    PACKAGE_kmod-sched-cake PACKAGE_luci-app-sqm \
-                   PACKAGE_nlbwmon PACKAGE_uhttpd-mod-ubus; do
+                   PACKAGE_nlbwmon PACKAGE_uhttpd-mod-ubus PACKAGE_mosquitto-client-nossl; do
             grep -q "^CONFIG_${p}=y" .config || { echo "FEHLER: $p fehlt nach defconfig"; exit 1; }
           done
           echo "Konfiguration OK"
