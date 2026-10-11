@@ -85,3 +85,55 @@ END {
 	}
 	printf "{\"count\":%d,\"aktiv\":%d,\"statisch\":%d,\"updated\":\"%s\",\"leases\":[%s]}", n, aktiv, statisch, ts, list
 }' "$LEASEFILE" | pub "$TOPIC_BASE/leases"
+
+# ---------------------------------------------------------------------------
+# Anwesenheit per Gerätename (unabhängig von wechselnden MAC-Adressen)
+# In /etc/lease2mqtt.conf:  PRESENCE_1='Mieter 1|S25-al-utilizatorului-Dan'
+#                           PRESENCE_2='Mieter 2|S25-di-Camelia'   (bis PRESENCE_9)
+# Optional: PRESENCE_TIMEOUT=300 (Sekunden ohne Antwort bis "abwesend")
+# Erzeugt in HA z. B. binary_sensor.mieter_1_anwesend
+# ---------------------------------------------------------------------------
+TIMEOUT="${PRESENCE_TIMEOUT:-300}"
+NOW="$(date +%s)"
+for n in 1 2 3 4 5 6 7 8 9; do
+	eval "entry=\${PRESENCE_$n}"
+	[ -n "$entry" ] || continue
+	label="${entry%%|*}"
+	host="${entry#*|}"
+	slug="$(echo "$label" | tr 'A-Z ' 'a-z_' | tr -cd 'a-z0-9_')"
+	topic="$TOPIC_BASE/presence/$slug"
+	seenfile="/tmp/lease2mqtt.seen.$slug"
+
+	if [ ! -e "/tmp/lease2mqtt.discovery.presence.$slug" ]; then
+		cat <<-EOF | pub "homeassistant/binary_sensor/brume3_presence_$slug/config" && touch "/tmp/lease2mqtt.discovery.presence.$slug"
+		{"name":"$label anwesend","unique_id":"brume3_presence_$slug","default_entity_id":"binary_sensor.${slug}_anwesend",
+		 "state_topic":"$topic","json_attributes_topic":"$topic/attr",
+		 "payload_on":"ON","payload_off":"OFF","device_class":"presence","expire_after":300,
+		 "device":{"identifiers":["brume3"],"name":"Brume 3","manufacturer":"GL.iNet","model":"GL-MT5000","sw_version":"OpenWrt"}}
+		EOF
+	fi
+
+	# Alle aktuellen Leases mit diesem Namen prüfen (alte MACs haben evtl. noch eine)
+	found_ip=""; found_mac=""
+	for pair in $(awk -v h="$host" 'NF >= 4 && tolower($4) == tolower(h) { print $3 "," tolower($2) }' "$LEASEFILE"); do
+		ip="${pair%%,*}"; mac="${pair#*,}"
+		# Frische ARP-Anfrage erzwingen: beantwortet der WLAN-Chip auch im Ruhezustand
+		ip neigh flush to "$ip" 2>/dev/null
+		ping -c 1 -W 2 "$ip" >/dev/null 2>&1
+		if ip neigh show to "$ip" | grep -qi "lladdr $mac"; then
+			found_ip="$ip"; found_mac="$mac"; echo "$NOW" > "$seenfile"
+			break
+		fi
+	done
+
+	last="$(cat "$seenfile" 2>/dev/null || echo 0)"
+	if [ $((NOW - last)) -lt "$TIMEOUT" ]; then state=ON; else state=OFF; fi
+	echo "$state" | pub "$topic"
+	if [ "$last" -gt 0 ]; then
+		lastts="$(date -d "@$last" '+%Y-%m-%d %H:%M:%S' 2>/dev/null || echo "$last")"
+	else
+		lastts="-"
+	fi
+	printf '{"geraetename":"%s","ip":"%s","mac":"%s","zuletzt_gesehen":"%s"}' \
+		"$host" "${found_ip:--}" "${found_mac:--}" "$lastts" | pub "$topic/attr"
+done
