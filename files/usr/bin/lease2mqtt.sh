@@ -128,7 +128,7 @@ for n in 1 2 3 4 5 6 7 8 9; do
 
 	last="$(cat "$seenfile" 2>/dev/null || echo 0)"
 	if [ $((NOW - last)) -lt "$TIMEOUT" ]; then state=ON; else state=OFF; fi
-	echo "$state" | pub "$topic"
+	printf "%s" "$state" | pub "$topic"
 	if [ "$last" -gt 0 ]; then
 		lastts="$(date -d "@$last" '+%Y-%m-%d %H:%M:%S' 2>/dev/null || echo "$last")"
 	else
