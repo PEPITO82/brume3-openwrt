@@ -91,7 +91,7 @@ END {
 # In /etc/lease2mqtt.conf:  PRESENCE_1='Mieter 1|S25-al-utilizatorului-Dan'
 #                           PRESENCE_2='Mieter 2|S25-di-Camelia'   (bis PRESENCE_9)
 # Optional: PRESENCE_TIMEOUT=600 (Sekunden ohne Antwort bis "abwesend")
-# Erzeugt in HA z. B. binary_sensor.mieter_1_anwesend
+# Erzeugt in HA z. B. binary_sensor.mieter_1_anwesend und device_tracker.mieter_1_handy
 # ---------------------------------------------------------------------------
 TIMEOUT="${PRESENCE_TIMEOUT:-600}"
 
@@ -126,6 +126,15 @@ for n in 1 2 3 4 5 6 7 8 9; do
 		 "device":{"identifiers":["brume3"],"name":"Brume 3","manufacturer":"GL.iNet","model":"GL-MT5000","sw_version":"OpenWrt"}}
 		EOF
 	fi
+	# Zusätzlich als Device-Tracker (nur solche lassen sich Personen zuordnen)
+	if [ ! -e "/tmp/lease2mqtt.discovery.tracker.$slug" ]; then
+		cat <<-EOF | pub "homeassistant/device_tracker/brume3_tracker_$slug/config" && touch "/tmp/lease2mqtt.discovery.tracker.$slug"
+		{"name":"$label Handy","unique_id":"brume3_tracker_$slug","default_entity_id":"device_tracker.${slug}_handy",
+		 "state_topic":"$topic/tracker","json_attributes_topic":"$topic/attr",
+		 "payload_home":"home","payload_not_home":"not_home","source_type":"router",
+		 "device":{"identifiers":["brume3"],"name":"Brume 3","manufacturer":"GL.iNet","model":"GL-MT5000","sw_version":"OpenWrt"}}
+		EOF
+	fi
 
 	# Alle aktuellen Leases mit diesem Namen prüfen (alte MACs haben evtl. noch eine)
 	found_ip=""; found_mac=""
@@ -140,6 +149,7 @@ for n in 1 2 3 4 5 6 7 8 9; do
 	last="$(cat "$seenfile" 2>/dev/null || echo 0)"
 	if [ $((NOW - last)) -lt "$TIMEOUT" ]; then state=ON; else state=OFF; fi
 	printf "%s" "$state" | pub "$topic"
+	if [ "$state" = ON ]; then printf home; else printf not_home; fi | pub "$topic/tracker"
 	if [ "$last" -gt 0 ]; then
 		lastts="$(date -d "@$last" '+%Y-%m-%d %H:%M:%S' 2>/dev/null || echo "$last")"
 	else
