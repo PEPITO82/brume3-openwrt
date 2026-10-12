@@ -9,6 +9,15 @@ CONF=/etc/lease2mqtt.conf
 [ -r "$CONF" ] || exit 0
 . "$CONF"
 
+# Nur eine Instanz gleichzeitig (gleiche MQTT-Client-ID würde sich sonst gegenseitig trennen)
+LOCK=/tmp/lease2mqtt.lock
+if ! mkdir "$LOCK" 2>/dev/null; then
+	# Verwaiste Sperre (älter als 5 min) aufräumen, sonst diesen Lauf auslassen
+	[ -n "$(find "$LOCK" -maxdepth 0 -mmin +5 2>/dev/null)" ] && rmdir "$LOCK" 2>/dev/null
+	exit 0
+fi
+trap 'rmdir "$LOCK" 2>/dev/null' EXIT
+
 MQTT_PORT="${MQTT_PORT:-1883}"
 TOPIC_BASE="${TOPIC_BASE:-brume3/dhcp}"
 DISC_TOPIC="homeassistant/sensor/brume3_dhcp_leases/config"
