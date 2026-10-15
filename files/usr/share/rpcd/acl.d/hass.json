@@ -1,0 +1,33 @@
+{
+	"hass": {
+		"description": "Home Assistant (OpenWrt ubus Integration) - nur lesend, plus nlbw-Abfrage",
+		"read": {
+			"ubus": {
+				"session": [ "access", "login", "list", "destroy" ],
+				"system": [ "board", "info" ],
+				"network.interface": [ "dump" ],
+				"network.device": [ "status" ],
+				"network.wireless": [ "status" ],
+				"iwinfo": [ "devices", "info", "assoclist" ],
+				"dhcp": [ "ipv4leases", "ipv6leases" ],
+				"file": [ "read" ],
+				"uci": [ "get" ],
+				"rc": [ "list" ]
+			},
+			"file": {
+				"/proc/stat": [ "read" ],
+				"/etc/ethers": [ "read" ],
+				"/tmp/dhcp.leases": [ "read" ],
+				"/var/dhcp.leases": [ "read" ]
+			}
+		},
+		"write": {
+			"ubus": {
+				"file": [ "exec" ]
+			},
+			"file": {
+				"/usr/sbin/nlbw": [ "exec" ]
+			}
+		}
+	}
+}
