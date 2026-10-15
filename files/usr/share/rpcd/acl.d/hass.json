@@ -16,6 +16,7 @@
 			},
 			"file": {
 				"/proc/stat": [ "read" ],
+				"/proc/sys/net/netfilter/nf_conntrack_count": [ "read" ],
 				"/etc/ethers": [ "read" ],
 				"/tmp/dhcp.leases": [ "read" ],
 				"/var/dhcp.leases": [ "read" ]
