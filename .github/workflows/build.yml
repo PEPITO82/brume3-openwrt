@@ -181,6 +181,6 @@ jobs:
           body: |
             OpenWrt für GL.iNet GL-MT5000 (Brume 3)
             Quelle: GLiNet-Tech/openwrt @ ${{ env.SRC_REV }} (OpenWrt main + PR #24237)
-            Zusatz: copy_config-Fix (Einstellungen behalten beim Sysupgrade)
+            Zusatz: copy_config-Fix (Einstellungen behalten beim Sysupgrade), Switch-Reset-Pin-Prüfung (GPIO 48)
             Alle kmods: ${{ inputs.all_kmods || 'true' }}
           files: out/*

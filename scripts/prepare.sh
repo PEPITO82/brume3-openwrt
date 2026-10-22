@@ -30,3 +30,24 @@ else
   sh -n "$PLATFORM_SH" || { echo "FEHLER: platform.sh hat Syntaxfehler"; exit 1; }
   echo ">> copy_config-Fix angewendet"
 fi
+
+# --- 3. Fix: Reset-Pin des RTL8366UB-Switches ------------------------------
+# Laut Stock-Device-Tree hängt der Switch-Reset an GPIO 48 (Review im PR
+# #24237). Ältere Stände hatten 42 – dann wird der Switch nie hart resettet.
+DTS=target/linux/mediatek/dts/mt7987a-gl-mt5000.dts
+SW_RESET=$(awk '/compatible = "realtek,rtl8366ub"/{f=1} f && /reset-gpios/{print; exit}' "$DTS")
+echo ">> Switch-Reset im DTS: ${SW_RESET:-nicht gefunden}"
+if echo "$SW_RESET" | grep -q '<&pio 48 '; then
+  echo ">> Reset-Pin-Fix nicht nötig (bereits GPIO 48)"
+elif echo "$SW_RESET" | grep -qE '<&pio [0-9]+ '; then
+  awk '
+    /compatible = "realtek,rtl8366ub"/ { f = 1 }
+    f && /reset-gpios = <&pio [0-9]+ / { sub(/<&pio [0-9]+ /, "<\\&pio 48 "); f = 0 }
+    { print }
+  ' "$DTS" > "$DTS.new" && mv "$DTS.new" "$DTS"
+  awk '/compatible = "realtek,rtl8366ub"/{f=1} f && /reset-gpios/{print; exit}' "$DTS" \
+    | grep -q '<&pio 48 ' || { echo "FEHLER: Reset-Pin-Fix ließ sich nicht anwenden"; exit 1; }
+  echo ">> Reset-Pin-Fix angewendet (GPIO 48)"
+else
+  echo "FEHLER: reset-gpios des Switches nicht gefunden – DTS-Aufbau geändert?"; exit 1
+fi
