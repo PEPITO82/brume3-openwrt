@@ -8,9 +8,14 @@ PLATFORM_SH=target/linux/mediatek/filogic/base-files/lib/upgrade/platform.sh
 # --- 1. Prüfen, ob der Geräte-Support vorhanden ist ------------------------
 grep -q 'define Device/glinet_gl-mt5000' target/linux/mediatek/image/filogic.mk \
   || { echo "FEHLER: Geräterezept glinet_gl-mt5000 fehlt"; exit 1; }
-test -f target/linux/mediatek/dts/mt7987a-gl-mt5000.dts \
-  || { echo "FEHLER: DTS fehlt"; exit 1; }
-echo ">> Geräte-Support vorhanden"
+# DTS-Name aus dem Geräterezept lesen (heißt seit 26.10.2026
+# mt7987a-glinet-gl-mt5000, vorher mt7987a-gl-mt5000)
+DTS_NAME=$(awk '/^define Device\/glinet_gl-mt5000$/{f=1} f && /DEVICE_DTS :=/{print $3; exit} f && /^endef/{exit}' \
+  target/linux/mediatek/image/filogic.mk)
+DTS=target/linux/mediatek/dts/${DTS_NAME:-?}.dts
+test -n "$DTS_NAME" && test -f "$DTS" \
+  || { echo "FEHLER: DTS fehlt (${DTS})"; exit 1; }
+echo ">> Geräte-Support vorhanden (DTS: ${DTS})"
 
 # --- 2. Fix: "Einstellungen behalten" beim Sysupgrade ----------------------
 # Im PR steht das Gerät nur in platform_do_upgrade(), nicht in
@@ -34,7 +39,6 @@ fi
 # --- 3. Fix: Reset-Pin des RTL8366UB-Switches ------------------------------
 # Laut Stock-Device-Tree hängt der Switch-Reset an GPIO 48 (Review im PR
 # #24237). Ältere Stände hatten 42 – dann wird der Switch nie hart resettet.
-DTS=target/linux/mediatek/dts/mt7987a-gl-mt5000.dts
 SW_RESET=$(awk '/compatible = "realtek,rtl8366ub"/{f=1} f && /reset-gpios/{print; exit}' "$DTS")
 echo ">> Switch-Reset im DTS: ${SW_RESET:-nicht gefunden}"
 if echo "$SW_RESET" | grep -q '<&pio 48 '; then
