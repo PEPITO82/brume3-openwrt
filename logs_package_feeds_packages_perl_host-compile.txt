@@ -1,0 +1,120 @@
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perl582delta.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perl581delta.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perl58delta.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perl561delta.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perl56delta.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perl5005delta.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perl5004delta.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlbook.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlcommunity.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perldoc.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlexperiment.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlartistic.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlgpl.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlcn.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perljp.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlko.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perltw.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlaix.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlamiga.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlandroid.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlbs2000.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlcygwin.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlfreebsd.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlhaiku.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlhpux.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlhurd.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlirix.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perllinux.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlmacosx.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlopenbsd.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlos2.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlos390.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlos400.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlplan9.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlqnx.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlriscos.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlsolaris.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlsynology.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perltru64.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlvms.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlvos.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlwin32.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlboot.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlbot.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perlrepository.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perltodo.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perltooc.pod
+  /mnt/openwrt/staging_dir/hostpkg/usr/lib/perl5/5.40.0/pod/perltoot.pod
+make[4]: Entering directory '/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/relink'
+make[4]: *** No rule to make target 'clean'.  Stop.
+make[4]: Leaving directory '/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/relink'
+Generating a Unix-style Makefile
+Writing Makefile for relink
+Writing MYMETA.yml and MYMETA.json
+make[4]: Entering directory '/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/relink'
+Writing "Makefile.aperl" for this perl
+Generating a Unix-style Makefile.aperl
+Writing Makefile.aperl for relink
+Writing MYMETA.yml and MYMETA.json
+make -f Makefile.aperl perl
+make[5]: Entering directory '/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/relink'
+Writing perlmain.c
+mv perlmain.ct perlmain.c
+cc -c   -fwrapv -fno-strict-aliasing -pipe -fstack-protector-strong -I/usr/local/include -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -O2   -DVERSION=\"\" -DXS_VERSION=\"\"  "-I.."   perlmain.c
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/B/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Compress/Raw/Bzip2/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Compress/Raw/Zlib/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Cwd/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Data/Dumper/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Devel/PPPort/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Devel/Peek/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Digest/MD5/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Digest/SHA/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/Byte/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/CN/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/EBCDIC/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/JP/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/KR/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/Symbol/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/TW/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/Unicode/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Fcntl/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/File/DosGlob/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/File/Glob/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Filter/Util/Call/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Hash/Util/FieldHash/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Hash/Util/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/I18N/Langinfo/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/IO/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/IPC/SysV/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/List/Util/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/MIME/Base64/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Math/BigInt/FastCalc/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Opcode/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/POSIX/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/PerlIO/encoding/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/PerlIO/mmap/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/PerlIO/via/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/SDBM_File/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Socket/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Storable/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Sys/Hostname/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Sys/Syslog/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Time/HiRes/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Time/Piece/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Unicode/Collate/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Unicode/Normalize/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/attributes/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/mro/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/re/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/threads/shared/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cat /mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/threads/extralibs.ld >> blib/arch/auto/relink/extralibs.all
+cc -fstack-protector-strong -L/usr/local/lib  -O2 ./perlmain.o -o perl "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/threads/threads.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/threads/shared/shared.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/re/re.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/mro/mro.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/attributes/attributes.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Unicode/Normalize/Normalize.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Unicode/Collate/Collate.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Time/Piece/Piece.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Time/HiRes/HiRes.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Sys/Syslog/Syslog.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Sys/Hostname/Hostname.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Storable/Storable.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Socket/Socket.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/SDBM_File/SDBM_File.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/PerlIO/via/via.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/PerlIO/mmap/mmap.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/PerlIO/encoding/encoding.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/POSIX/POSIX.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Opcode/Opcode.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Math/BigInt/FastCalc/FastCalc.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/MIME/Base64/Base64.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/List/Util/Util.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/IPC/SysV/SysV.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/IO/IO.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/I18N/Langinfo/Langinfo.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Hash/Util/Util.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Hash/Util/FieldHash/FieldHash.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Filter/Util/Call/Call.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/File/Glob/Glob.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/File/DosGlob/DosGlob.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Fcntl/Fcntl.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/Unicode/Unicode.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/TW/TW.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/Symbol/Symbol.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/KR/KR.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/JP/JP.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/Encode.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/EBCDIC/EBCDIC.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/CN/CN.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Encode/Byte/Byte.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Digest/SHA/SHA.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Digest/MD5/MD5.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Devel/Peek/Peek.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Devel/PPPort/PPPort.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Data/Dumper/Dumper.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Cwd/Cwd.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Compress/Raw/Zlib/Zlib.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/Compress/Raw/Bzip2/Bzip2.a" "/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/lib/auto/B/B.a" "../libperl.a" `cat blib/arch/auto/relink/extralibs.all` -lpthread -ldl -lm -lcrypt -lutil -lc 
+To install the new 'perl' binary, call
+    make -f Makefile.aperl inst_perl MAP_TARGET=perl
+    make -f Makefile.aperl map_clean
+make[5]: Leaving directory '/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/relink'
+make[4]: Leaving directory '/mnt/openwrt/build_dir/hostpkg/perl/perl-5.40.0/relink'
+time: package/feeds/packages/perl/host-compile#291.41#42.34#357.99
