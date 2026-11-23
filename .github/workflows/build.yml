@@ -14,6 +14,10 @@ on:
         description: "Alle Kernelmodule mitbauen (dauert länger, erlaubt spätere Nachinstallation)"
         type: boolean
         default: true
+      packages_prs:
+        description: "Optional: PR-Nummern aus openwrt/packages zum Testen, durch Leerzeichen getrennt (z. B. 31426)"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -82,6 +86,25 @@ jobs:
           # rtpengine-kmod baut z. B. nicht mit Kernel 6.18)
           sed -i -E '/^src-git (telephony|video) /d' feeds.conf.default
           ./scripts/feeds update -a
+
+          # Optional: PRs aus openwrt/packages zum Testen einspielen
+          PRS="${{ inputs.packages_prs }}"
+          : > "$GITHUB_WORKSPACE/pr-pakete.txt"
+          for pr in $PRS; do
+            echo ">> Spiele openwrt/packages#$pr ein"
+            curl -fsSL "https://github.com/openwrt/packages/pull/$pr.patch" -o "/tmp/pr-$pr.patch"
+            git -C feeds/packages -c user.name=ci -c user.email=ci@localhost am -3 "/tmp/pr-$pr.patch" \
+              || { echo "FEHLER: PR #$pr lässt sich nicht anwenden"; exit 1; }
+            # Betroffene Pakete merken (Verzeichnis mit Makefile), um sie später mitzuliefern
+            grep -E '^\+\+\+ b/' "/tmp/pr-$pr.patch" | sed -E 's#^\+\+\+ b/##' \
+              | awk -F/ 'NF>=2 {print $2}' | sort -u >> "$GITHUB_WORKSPACE/pr-pakete.txt"
+          done
+          if [ -s "$GITHUB_WORKSPACE/pr-pakete.txt" ]; then
+            sort -u -o "$GITHUB_WORKSPACE/pr-pakete.txt" "$GITHUB_WORKSPACE/pr-pakete.txt"
+            echo ">> Pakete aus PRs:"; cat "$GITHUB_WORKSPACE/pr-pakete.txt"
+            echo "PKG_PRS=$PRS" >> "$GITHUB_ENV"
+          fi
+
           ./scripts/feeds install -a
 
       - name: Konfigurieren
@@ -159,6 +182,12 @@ jobs:
           if [ -d "$T/packages" ]; then
             tar -C "$T" -czf "$OUT/kmods-und-target-pakete.tar.gz" packages
           fi
+          # Pakete aus getesteten openwrt/packages-PRs einzeln mitliefern
+          if [ -s "$GITHUB_WORKSPACE/pr-pakete.txt" ]; then
+            while read -r p; do
+              find bin/packages -type f -name "${p}[-_][0-9]*.apk" -exec cp -v {} "$OUT/" \; || true
+            done < "$GITHUB_WORKSPACE/pr-pakete.txt"
+          fi
           (cd "$OUT" && sha256sum * > sha256sums.txt) || true
           ls -la "$OUT"
           echo "TAG=brume3-$(date +%Y%m%d)-${{ github.run_number }}" >> "$GITHUB_ENV"
@@ -183,4 +212,5 @@ jobs:
             Quelle: GLiNet-Tech/openwrt @ ${{ env.SRC_REV }} (OpenWrt main + PR #24237)
             Zusatz: copy_config-Fix (Einstellungen behalten beim Sysupgrade), Switch-Reset-Pin-Prüfung (GPIO 48)
             Alle kmods: ${{ inputs.all_kmods || 'true' }}
+            Getestete openwrt/packages-PRs: ${{ inputs.packages_prs || 'keine' }}
           files: out/*
