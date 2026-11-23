@@ -80,6 +80,8 @@ jobs:
           fi
 
       - name: Feeds aktualisieren
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           cd "$OPENWRT_PATH"
           # Telefonie- und Video-Feed werden nicht gebraucht (spart Bauzeit,
@@ -92,7 +94,18 @@ jobs:
           : > "$GITHUB_WORKSPACE/pr-pakete.txt"
           for pr in $PRS; do
             echo ">> Spiele openwrt/packages#$pr ein"
-            curl -fsSL "https://github.com/openwrt/packages/pull/$pr.patch" -o "/tmp/pr-$pr.patch"
+            # Angemeldet über die API holen (unangemeldete .patch-Downloads
+            # werden von GitHub auf Actions-Runnern oft mit 429 gedrosselt)
+            ok=0
+            for try in 1 2 3 4 5; do
+              if gh api -H "Accept: application/vnd.github.patch" \
+                   "repos/openwrt/packages/pulls/$pr" > "/tmp/pr-$pr.patch" \
+                 && grep -q '^diff --git' "/tmp/pr-$pr.patch"; then
+                ok=1; break
+              fi
+              echo "Versuch $try fehlgeschlagen, warte $((try * 15)) s ..."; sleep $((try * 15))
+            done
+            [ "$ok" = 1 ] || { echo "FEHLER: PR #$pr ließ sich nicht herunterladen"; exit 1; }
             git -C feeds/packages -c user.name=ci -c user.email=ci@localhost am -3 "/tmp/pr-$pr.patch" \
               || { echo "FEHLER: PR #$pr lässt sich nicht anwenden"; exit 1; }
             # Betroffene Pakete merken (Verzeichnis mit Makefile), um sie später mitzuliefern
